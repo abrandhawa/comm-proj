@@ -1,21 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Constant } from '../constant/constant';
+import { Observable } from 'rxjs';
+// import { Comment } from '../../../Models/models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  BaseUrl = 'https://dummyjson.com';
+  getProduct = '/products';
+  getCategory='/products/categories'
 
   constructor(private http:HttpClient) { }
 
-  getCategory(){
-    return this.http.get(Constant.API_END_POINT + Constant.METHODS.GET_ALL_CATEGORY)
-  };
-  saveProduct(obj:any){
-    return this.http.post(Constant.API_END_POINT + Constant.METHODS.CREATE_PRODUCT,obj)
-  };
-  getProduct(){
-    return this.http.get(Constant.API_END_POINT + Constant.METHODS.GET_ALL_PRODUCTS)
+  getPost():Observable<any[]>{
+    return this.http.get<any[]>(`${this.BaseUrl}${this.getProduct}`);
   }
+
+  getCatpost():Observable<any[]>{
+    return this.http.get<any[]>(`${this.BaseUrl}${this.getCategory}`);
+  }
+
+ 
 }

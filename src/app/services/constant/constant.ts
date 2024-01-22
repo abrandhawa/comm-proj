@@ -1,8 +1,8 @@
 export const Constant ={
-API_END_POINT:'http://freeapi.miniprojectideas.com/api/BigBasket/',
-METHODS:{
-    GET_ALL_PRODUCTS:'GetAllProducts',
-    GET_ALL_CATEGORY:'GetAllCategory',
-    CREATE_PRODUCT:'CreateProduct'
-}
+// API_END_POINT:'http://api.fakeshop-api.com',
+// METHODS:{
+//     GET_ALL_PRODUCTS:'/products/getAllProducts',
+//     GET_ALL_CATEGORY:'',
+//     CREATE_PRODUCT:''
+// }
 }

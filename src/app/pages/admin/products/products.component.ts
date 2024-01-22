@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component,OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../../services/product/product.service';
-import { threadId } from 'worker_threads';
+// import { Comment } from '../../../../Models/models';
+import { Pipe, PipeTransform } from '@angular/core';
+
 
 
 @Component({
@@ -17,20 +19,26 @@ export class ProductsComponent implements OnInit {
   isSidePanelVisible: boolean = false;
 
   productObj:any = {
-    "productId": 0,
-    "productSku": "",
-    "productName": "",
-    "productPrice": 0,
-    "productShortName": "",
-    "productDescription": "",
-    "createdDate": new Date(),
-    "deliveryTimeSpan": "",
-    "categoryId": 0,
-    "productImageUrl": ""
+    
+    "id": '',
+    "title": " ",
+    "description": "",
+    "price": '',
+    "discountPercentage": '' ,
+    "rating": '',
+    "stock": '',
+    "brand": "",
+    "category": "",
+    "thumbnail": "",
+    "images": ""
   };
-
-  categoryList: any[] =[];
-  productList: any[] =[];
+   
+  productList:any[]=[];
+  CategoryList:any[]=[];
+   
+  
+  
+ 
 
 
   constructor(private productsrv:ProductService){
@@ -38,21 +46,38 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.GetAllCategory();
+    this.GetAllCategories()
     this.GetAllProducts();
   }
 
-  GetAllCategory(){
-    this.productsrv.getCategory().subscribe((res:any)=>{
-      this.categoryList = res.data;
+  // GetAllCategory(){
+  //   this.productsrv.getCategory().subscribe((res:any)=>{
+  //     this.categoryList = res.data;
+  //   });
+  // }
+
+  GetAllProducts(){
+    this.productsrv.getPost().subscribe((comments:any) => {
+      this.productList = comments?.products;
     });
   }
 
-  GetAllProducts(){
-    this.productsrv.getProduct().subscribe((res:any)=>{
-      this.productList = res.data;
+
+  GetAllCategories(){
+    this.productsrv.getCatpost().subscribe((categories:any) => {
+      this.CategoryList = categories ;
+      console.log(this.CategoryList)
     });
   }
+
+  //  GetAllProducts(){
+  //   fetch('https://dummyjson.com/products')
+  //   .then(res => res.json()) 
+  //   .then(console.log)
+  //   };
+  
+
+
   addNewProduct(){
 
    return this.isSidePanelVisible = true;
@@ -62,17 +87,17 @@ export class ProductsComponent implements OnInit {
     return this.isSidePanelVisible = false;
   }
 
-  onSave(){
-    this.productsrv.saveProduct(this.productObj).subscribe((res:any)=>{
-      debugger;
-      if(res.result){
-        alert('product created');
-        this.GetAllProducts();
-      } else {
-        alert(res.message)
-      }
-    })
-  }
+  // onSave(){
+  //   this.productsrv.saveProduct(this.productObj).subscribe((res:any)=>{
+  //     debugger;
+  //     if(res.result){
+  //       alert('product created');
+  //       this.GetAllProducts();
+  //     } else {
+  //       alert(res.message)
+  //     }
+  //   })
+  // }
 
 
 }
