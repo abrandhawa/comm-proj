@@ -1,11 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../../services/product/product.service';
-// import { Comment } from '../../../../Models/models';
-import { Pipe, PipeTransform } from '@angular/core';
-
-
 
 @Component({
   selector: 'app-products',
@@ -15,147 +11,90 @@ import { Pipe, PipeTransform } from '@angular/core';
   styleUrl: './products.component.css'
 })
 export class ProductsComponent implements OnInit {
-
-  isSidePanelVisible: boolean = false;
-
-  productObj:any = {
-    
-    "id": '',
-    "title": " ",
-    "description": "",
-    "price": '',
-    "discountPercentage": '' ,
   
-    "stock": '',
-    "brand": "",
-    "category": "",
-    "thumbnail": "",
-    "images": ""
+  isSidePanelVisible: boolean= false;
+  productObj: any = {
+    "productId": 0,
+    "productSku": "",
+    "productName": "",
+    "productPrice": 0,
+    "productShortName": "",
+    "productDescription": "",
+    "createdDate": new Date(),
+    "deliveryTimeSpan": "",
+    "categoryId": 0,
+    "productImageUrl": ""
   };
-   
-  productList:any[]=[];
-  CategoryList:any[]=[];
-   
-  
-  
- 
+  categoryList: any [] = [];
+  productsList: any [] = [];
 
-
-  constructor(private productsrv:ProductService){
-
+  constructor(private productSrv: ProductService) {
+    
   }
-
   ngOnInit(): void {
-    this.GetAllCategories()
-    this.GetAllProducts();
+    this.getProducts();
+    this.getALlCategory();
+  }
+  getProducts() {
+    this.productSrv.getProducts().subscribe((res:any)=>{
+      this.productsList = res.data;
+    })
   }
 
-  // GetAllCategory(){
-  //   this.productsrv.getCategory().subscribe((res:any)=>{
-  //     this.categoryList = res.data;
-  //   });
+  getALlCategory() {
+    this.productSrv.getCategory().subscribe((res:any)=>{
+      this.categoryList = res.data;
+    })
+  }
+  onUpdate() {
+    this.productSrv.saveProduct(this.productObj).subscribe((res:any)=>{
+      debugger;
+      if(res.result) {
+        alert("Product Created");
+        this.getProducts();
+      } else {
+        alert(res.message)
+      }
+    })
+  }
+  onSave() {
+    this.productSrv.saveProduct(this.productObj).subscribe((res:any)=>{
+      debugger;
+      if(res.result) {
+        alert("Product Updated");
+        this.getProducts();
+      } else {
+        alert(res.message)
+      }
+    })
+  }
+  // onDelete(item: any) {
+  //   const isDelete = confirm('Are you Sure want to delte');
+  //   if(isDelete) {
+  //     this.productSrv.deleteProduct(item.productId).subscribe((res:any)=>{
+  //       debugger;
+  //       if(res.result) {
+  //         alert("Product Deleted");
+  //         this.getProducts();
+  //       } else {
+  //         alert(res.message)
+  //       }
+  //     })
+  //   }
   // }
 
-  GetAllProducts(){
-    this.productsrv.getPost().subscribe((comments:any) => {
-      this.productList = comments?.products;
-    });
-  }
-
-
-  GetAllCategories(){
-    this.productsrv.getCatpost().subscribe((categories:any) => {
-      this.CategoryList = categories ;
-      console.log(this.CategoryList)
-    });
-  }
-
-  //  GetAllProducts(){
-  //   fetch('https://dummyjson.com/products')
-  //   .then(res => res.json()) 
-  //   .then(console.log)
-  //   };
-  
-
-
-  addNewProduct(){
-
-   return this.isSidePanelVisible = true;
-  }
-
-  closeProduct(){
-    return this.isSidePanelVisible = false;
-  }
-
-  // onSave(){
-  //    this.productsrv.savePost(this.productObj).subscribe((res:any)=>{
-  //     if(res.result){
-  //       alert('product created');
-  //       this.GetAllProducts();
-  //     } else {
-  //       alert(res.message)
-  //     }
-  //   });
-  
-
-  onSave() {
-    fetch('https://dummyjson.com/products/add', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        // Add any other headers you need
-      },
-      body: JSON.stringify(this.productObj),
-    })
-      .then((response) => response.json())
-      .then((res) => {
-        if (res.result) {
-          alert('Product created');
-          this.GetAllProducts();
-        } else {
-          alert(res.message);
-        }
-      })
-      .catch((error) => {
-        console.error('Error creating product:', error);
-        alert('Error creating product');
-      });
-  }
-    
-  onEdit(item: any){
+  onEdit(item: any) {
     this.productObj = item;
-    this.addNewProduct();
+    this.openSidePanel();
   }
 
-  onDelete(){
 
+  openSidePanel() {
+    this.isSidePanelVisible = true;
   }
 
-  onUpdate(){
-    fetch('https://dummyjson.com//products/1', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        // Add any other headers you need
-      },
-      body: JSON.stringify(this.productObj),
-    })
-      .then((response) => response.json())
-      .then((res) => {
-        if (res.result) {
-          alert('Product updated');
-          this.GetAllProducts();
-        } else {
-          alert(res.message);
-        }
-      })
-      .catch((error) => {
-        console.error('Error updating product:', error);
-        alert('Error updating product');
-      });
+  closeSidePanel() {
+    this.isSidePanelVisible = false;
   }
- 
-   
-  
 
 }

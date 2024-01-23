@@ -1,29 +1,30 @@
 <div class="row">
-    <div [ngClass]="isSidePanelVisible ? 'col-8' : 'col-12'">
+    <div [ngClass]="isSidePanelVisible ? 'col-8' : 'col-12'" >
         <div class="card">
             <div class="card-header bg-primary">
                 <div class="row">
                     <div class="col-6">
                         Product List
                     </div>
-                    <div class="col-6 text-end ">
-                        <button class="btn btn-sm btn-success" (click)="addNewProduct()">New</button>
+                    <div class="col-6 text-end">
+                        <button class="btn btn-sm btn-success" (click)="openSidePanel()">New</button>
                     </div>
                 </div>
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-3 " *ngFor="let product  of productList">
-                        <div class="card mb-5 customized-card">
-                            <img style="height: 12.125rem !important"  [src]="product.images" class="card-img-top " alt="...">
-                            <div class="card-body ">
-                              <h5 class="card-title ">{{product.title}} </h5>
-                              <p class="card-text"> {{product.category}} </p>
+                    <div class="col-3 pt-2" *ngFor="let product of productsList">
+                        <div class="card">
+                            <img class="card-img-top" style="height: 12.125rem !important" [src]="product.productImageUrl" alt="Card image">
+                            <div class="card-body">
+                              <h4 class="card-title">{{product.productShortName}}</h4>
+                              <p class="card-text">{{product.categoryName}}</p>
                               <a class="btn btn-primary" (click)="onEdit(product)">Edit</a>
-                              <a class="btn btn-danger mx-2" (click)="onDelete()">Delete</a>
+                              <a   class="btn btn-danger mx-2" >Delete</a>
                             </div>
                           </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -33,69 +34,67 @@
             <div class="card-header bg-primary">
                 <div class="row">
                     <div class="col-6">
-                        New Product
+                       New Product 
                     </div>
-                    <div class="col-6 text-end ">
-                        <button class="btn btn-sm btn-success " (click)="closeProduct()">Close</button>
+                    <div class="col-6  text-end">
+                        <button class="btn btn-sm btn-success" (click)="closeSidePanel()">Close</button>
                     </div>
                 </div>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
-                        <label for="">Product name </label>
-                        <input type="text" [(ngModel)]="productObj.title" class="form-control ">
+                        <label for="">SKU</label>
+                        <input type="text" [(ngModel)]="productObj.productSku" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="">Name</label>
+                        <input type="text" [(ngModel)]="productObj.productName" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="">Short Name</label>
+                        <input type="text" [(ngModel)]="productObj.productShortName" class="form-control">
                     </div>
                     <div class="col-6">
                         <label for="">Price</label>
-                        <input type="text" [(ngModel)]="productObj.price" class="form-control ">
-                    </div>
-               </div>    
-               <div class="row">
-                    <div class="col-6">
-                        <label for="">Product stock</label>
-                        <input type="text" [(ngModel)]="productObj.stock" class="form-control ">
-                    </div>
-                    <div class="col-6">
-                        <label for="">Product brand</label>
-                        <input type="text" [(ngModel)]="productObj.brand" class="form-control ">
+                        <input type="text" [(ngModel)]="productObj.productPrice" class="form-control">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
                         <label for="">Category</label>
-                        <select [(ngModel)]="productObj.category" class="form-select ">
-                            <option *ngFor="let cate of CategoryList" [value]="cate">{{cate}} </option>
-                        </select>
+                        <select [(ngModel)]="productObj.categoryId" class="form-select">
+                            <option *ngFor="let cate of categoryList" [value]="cate.categoryId"> {{cate.categoryName}}</option>
+                        </select> 
                     </div>
                     <div class="col-6">
-                        <label for="">Thumbnail</label>
-                        <input type="text" [(ngModel)]="productObj.thumbnail" class="form-control ">
+                        <label for="">Delivery Time Span</label>
+                        <input type="text" [(ngModel)]="productObj.deliveryTimeSpan" class="form-control">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 ">
-                        <label for="">Product image Url</label>
-                        <input type="text" [(ngModel)]="productObj.images" class="form-control ">
-                    </div>
+                    <div class="col-12">
+                        <label for="">Image Url</label>
+                        <input type="text" [(ngModel)]="productObj.productImageUrl" class="form-control">
+                    </div> 
                 </div>
                 <div class="row">
-                    <div class="col-12 ">
+                    <div class="col-12">
                         <label for="">Product Description</label>
-                       <textarea rows="4" [(ngModel)]="productObj.description"  class="form-control "></textarea> 
+                        <textarea rows="4" class="form-control" [(ngModel)]="productObj.productDescription"  ></textarea>
+                    </div> 
+                </div>
+                <div class="row pt-2">
+                    <div class="col-6 text-center">
+                       <button class="btn btn-success">Reset</button>
+                    </div>
+                    <div class="col-6 text-center">
+                        <button class="btn btn-success" *ngIf="productObj.productId == 0" (click)="onSave()">Create Product</button>
+                        <button class="btn btn-primary" *ngIf="productObj.productId !==0" (click)="onUpdate()">Update Product</button>
                     </div>
                 </div>
-                <div class="row pt-2 ">
-                    <div class="col-6">
-                        <button class="btn btn-success ">Reset</button>
-                    </div>
-                    <div class="col-6 text-center ">
-                        <button class="btn btn-success " *ngIf="productObj.id== 0" (click)="onSave()" >Create Product</button>
-                        <button class="btn btn-primary  " *ngIf="productObj.id " (click)="onUpdate()" >Update Product</button>
-                    </div>
-                </div>
-                    
-                
             </div>
         </div>
     </div>

@@ -1,35 +1,33 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Constant } from '../constant/constant';
-import { Observable } from 'rxjs';
-// import { Comment } from '../../../Models/models';
 
 @Injectable({
   providedIn: 'root'
+  
 })
 export class ProductService {
-  BaseUrl = 'https://dummyjson.com';
-  getProduct = '/products';
-  getCategory='/products/categories';
-  saveProduct='/products/add';
-  updateProduct='/products/1'
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getPost():Observable<any[]>{
-    return this.http.get<any[]>(`${this.BaseUrl}${this.getProduct}`);
+  getCategory() {
+    return this.http.get(Constant.API_END_POINT + Constant.METHODS.GET_ALL_CATEGORY);
   }
 
-  getCatpost():Observable<any[]>{
-    return this.http.get<any[]>(`${this.BaseUrl}${this.getCategory}`);
-  }
-
-  // savePost(obj:any){
-  //  return this.http.post<any>(`${this.BaseUrl}${this.saveProduct}`,obj);
+  // getProductsByCategory(id: number) {
+  //   return this.http.get(Constant.API_END_POINT + Constant.METHODS.GET_ALL_PRODUCT_BY_CATEGORY +  id);
   // }
-  // updatePost(obj:any){
-  //   return this.http.post<any>(`${this.BaseUrl}${this.updateProduct}`,obj);
-  //  }
+  getProducts() {
+    return this.http.get(Constant.API_END_POINT + Constant.METHODS.GET_ALL_PRODUCT);
+  }
+  saveProduct(obj: any) {
+    return this.http.post(Constant.API_END_POINT + Constant.METHODS.CREATE_PRODUCT, obj);
+  }
+  updateProduct(obj: any) {
+    return this.http.post(Constant.API_END_POINT + Constant.METHODS.UPDATE_PRODUCT, obj);
+  }
 
- 
+  // deleteProduct(id: any) {
+  //   return this.http.get(Constant.API_END_POINT + Constant.METHODS.DELETE_PRODUCT + id);
+  // }
 }
