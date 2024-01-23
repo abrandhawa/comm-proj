@@ -12,23 +12,19 @@ import { ProductService } from '../../../services/product/product.service';
 })
 export class LandingComponent implements OnInit {
  
-productList:any[]=[];
 categoryList:any[]=[];
 
-  constructor(private prodSrv:ProductService,private router:Router){
+  constructor(private router:Router,private prodSrv:ProductService){
 
 
   }
   
 ngOnInit(): void {
-  this.getAllProducts();
+  
   this.getAllCategory();
 }
 
-getAllProducts(){
-  this.prodSrv.getProducts().subscribe((res:any)=>{
-    this.productList= res.data  })
-}
+
 
 getAllCategory(){
   this.prodSrv.getCategory().subscribe((res:any)=>{

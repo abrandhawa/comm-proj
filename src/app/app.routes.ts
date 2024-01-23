@@ -5,11 +5,12 @@ import { ProductsComponent } from './pages/admin/products/products.component';
 import { CategoriesComponent } from './pages/admin/categories/categories.component';
 import { LandingComponent } from './pages/website/landing/landing.component';
 import { CategoryProductsComponent } from './pages/website/category-products/category-products.component';
+import { ProductComponent } from './pages/website/product/product.component';
 
 export const routes: Routes = [
 {
     path:'',
-    redirectTo:'shop',
+    redirectTo:'Allproducts',
     pathMatch:'full'
 },
 {
@@ -17,12 +18,18 @@ export const routes: Routes = [
     component:LoginComponent
 },
 {
-    path:'shop',
-    component:LandingComponent
-},
-{
-path:'products/:id',
-component:CategoryProductsComponent
+    path:'',
+    component:LandingComponent,
+    children:[
+        {
+            path:'Allproducts',
+            component:ProductComponent
+        },
+        {
+            path:'products/:id',
+            component:CategoryProductsComponent 
+        }
+    ]
 },
 {
     path:'',

@@ -14,9 +14,9 @@ export class ProductService {
     return this.http.get(Constant.API_END_POINT + Constant.METHODS.GET_ALL_CATEGORY);
   }
 
-  // getProductsByCategory(id: number) {
-  //   return this.http.get(Constant.API_END_POINT + Constant.METHODS.GET_ALL_PRODUCT_BY_CATEGORY +  id);
-  // }
+  getProductsByCategory(id: number) {
+    return this.http.get(Constant.API_END_POINT + Constant.METHODS.GET_ALL_PRODUCT_BY_CATEGORY +  id);
+  }
   getProducts() {
     return this.http.get(Constant.API_END_POINT + Constant.METHODS.GET_ALL_PRODUCT);
   }

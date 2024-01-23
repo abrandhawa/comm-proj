@@ -19,7 +19,7 @@
                             Categories
                         </a>
                         <ul class="dropdown-menu  " aria-labelledby="navbarDropdown">
-                            <li  *ngFor="let category of categoryList" > <a class="dropdown-item" (click)="navigateToProducts(category.categoryId)">{{category.categoryName}}</a></li>
+                            <li  *ngFor="let category of categoryList" ><a class="dropdown-item custom-pointer"  (click)="navigateToProducts(category.categoryId)">{{category.categoryName}}</a></li>
                           
                         </ul>
                     </li>
@@ -135,34 +135,4 @@
         </div>
     </nav>
 </header>
-<div class="container-fluid py-5">
-    <div class="container py-5">
-        <div class="text-centre mx-auto mb-5" style="max-width: 700px;">
-            <h1 class="display-4 ">BestSeller Products</h1>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo quo atque earum est illum, aspernatur a praesentium quas obcaecati perferendis.</p>
-        </div>
-        <div class="row g-4">
-            <div class="col-lg-6 col-xl-4" *ngFor="let product of productList">
-                <div class="p-4 rounded bg-light">
-                    <div class="row align-items-centre">
-                        <div class="col-6">
-                            <img [src]="product.productImageUrl" class="img-fluid rounded-circle  w-100 " alt="">
-                        </div>
-                        <div class="col-6">
-                            <a href="#" class="h5 ">{{product.productShortName}} </a>
-                            <div class="d-flex my-3">
-                                <i class="fa fa-star text-primary "></i>
-                                <i class="fa fa-star text-primary "></i>
-                                <i class="fa fa-star text-primary "></i>
-                                <i class="fa fa-star text-primary "></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <h4 class="mb-3 ">{{product.productPrice}}$ </h4>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary "> <i class="fa fa-shoping-bag me-2 text-primary "></i>Add to Cart </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<router-outlet></router-outlet>
