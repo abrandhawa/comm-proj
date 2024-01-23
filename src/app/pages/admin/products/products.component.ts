@@ -68,20 +68,20 @@ export class ProductsComponent implements OnInit {
       }
     })
   }
-  // onDelete(item: any) {
-  //   const isDelete = confirm('Are you Sure want to delte');
-  //   if(isDelete) {
-  //     this.productSrv.deleteProduct(item.productId).subscribe((res:any)=>{
-  //       debugger;
-  //       if(res.result) {
-  //         alert("Product Deleted");
-  //         this.getProducts();
-  //       } else {
-  //         alert(res.message)
-  //       }
-  //     })
-  //   }
-  // }
+  onDelete(item: any) {
+    const isDelete = confirm('Are you Sure want to delte');
+    if(isDelete) {
+      this.productSrv.deleteProduct(item.productId).subscribe((res:any)=>{
+        debugger;
+        if(res.result) {
+          alert("Product Deleted");
+          this.getProducts();
+        } else {
+          alert(res.message)
+        }
+      })
+    }
+  }
 
   onEdit(item: any) {
     this.productObj = item;

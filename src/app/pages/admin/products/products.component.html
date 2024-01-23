@@ -20,7 +20,7 @@
                               <h4 class="card-title">{{product.productShortName}}</h4>
                               <p class="card-text">{{product.categoryName}}</p>
                               <a class="btn btn-primary" (click)="onEdit(product)">Edit</a>
-                              <a   class="btn btn-danger mx-2" >Delete</a>
+                              <a   class="btn btn-danger mx-2" (click)="onDelete(product)">Delete</a>
                             </div>
                           </div>
                     </div>

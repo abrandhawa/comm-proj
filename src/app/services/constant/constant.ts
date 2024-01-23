@@ -7,6 +7,6 @@ export const Constant = {
 
         CREATE_PRODUCT: 'CreateProduct',
         UPDATE_PRODUCT: 'UpdateProduct',
-        // DELETE_PRODUCT: 'DeleteProductById?id='
+        DELETE_PRODUCT: 'DeleteProductById?id='
     }
 }

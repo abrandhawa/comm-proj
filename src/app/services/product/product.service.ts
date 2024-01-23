@@ -27,7 +27,7 @@ export class ProductService {
     return this.http.post(Constant.API_END_POINT + Constant.METHODS.UPDATE_PRODUCT, obj);
   }
 
-  // deleteProduct(id: any) {
-  //   return this.http.get(Constant.API_END_POINT + Constant.METHODS.DELETE_PRODUCT + id);
-  // }
+  deleteProduct(id: any) {
+    return this.http.get(Constant.API_END_POINT + Constant.METHODS.DELETE_PRODUCT + id);
+  }
 }
