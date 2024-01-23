@@ -25,7 +25,7 @@ export class ProductsComponent implements OnInit {
     "description": "",
     "price": '',
     "discountPercentage": '' ,
-    "rating": '',
+  
     "stock": '',
     "brand": "",
     "category": "",
@@ -88,16 +88,74 @@ export class ProductsComponent implements OnInit {
   }
 
   // onSave(){
-  //   this.productsrv.saveProduct(this.productObj).subscribe((res:any)=>{
-  //     debugger;
+  //    this.productsrv.savePost(this.productObj).subscribe((res:any)=>{
   //     if(res.result){
   //       alert('product created');
   //       this.GetAllProducts();
   //     } else {
   //       alert(res.message)
   //     }
-  //   })
-  // }
+  //   });
+  
 
+  onSave() {
+    fetch('https://dummyjson.com/products/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // Add any other headers you need
+      },
+      body: JSON.stringify(this.productObj),
+    })
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result) {
+          alert('Product created');
+          this.GetAllProducts();
+        } else {
+          alert(res.message);
+        }
+      })
+      .catch((error) => {
+        console.error('Error creating product:', error);
+        alert('Error creating product');
+      });
+  }
+    
+  onEdit(item: any){
+    this.productObj = item;
+    this.addNewProduct();
+  }
+
+  onDelete(){
+
+  }
+
+  onUpdate(){
+    fetch('https://dummyjson.com//products/1', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // Add any other headers you need
+      },
+      body: JSON.stringify(this.productObj),
+    })
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result) {
+          alert('Product updated');
+          this.GetAllProducts();
+        } else {
+          alert(res.message);
+        }
+      })
+      .catch((error) => {
+        console.error('Error updating product:', error);
+        alert('Error updating product');
+      });
+  }
+ 
+   
+  
 
 }
